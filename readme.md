@@ -37,7 +37,7 @@ Sigue estos pasos para tener la aplicación funcionando en tu máquina local.
 ### Paso 1: Clonar el Repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/jrendonzam/supabase.git  
 cd <NOMBRE_DE_LA_CARPETA>
 ```
 
@@ -224,7 +224,6 @@ CREATE TABLE time_logs (
 
 Este archivo sirve como una plantilla clara para que los usuarios sepan qué variables de entorno necesitan configurar.
 
-```diff
 # Variables de Entorno para la Aplicación
 # Copia este archivo a .env y rellena los valores.
 
