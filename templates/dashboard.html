@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard </h2>
+<p>Reporte generado desde la base de datos MySQL</p>
+<table>
+    <tr>
+        <th>ID de Tarea</th>
+        <th>Título de la Tarea</th>
+        <th>Total de Minutos Registrados</th>
+        <th>Total de Horas </th>
+    </tr>
+    {% for item in summary %}
+    <tr>
+        <td>{{ item.task_id }}</td>
+        <td>{{ item.task_title }}</td>
+        <td>{{ item.total_minutes }}</td>
+        <td>{{ "%.2f"|format(item.total_minutes / 60) }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="4">No hay tiempo registrado para mostrar.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

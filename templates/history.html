@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Historial de Tiempo{% endblock %}
+{% block content %}
+<h2>Historial de Tiempo para la Tarea #{{task_id}}</h2>
+<p>Este es el historial de todos los registros de tiempo para esta tarea, leídos desde la base de datos de analítica
+    (MySQL).</p>
+<table>
+    <tr>
+        <th>ID de Registro</th>
+        <th>Minutos Registrados</th>
+        <th>Fecha del Registro</th>
+    </tr>
+    {% for log in logs %}
+    <tr>
+        <td>{{log.id}}</td>
+        <td>{{log.duration_minutes}}</td>
+        <td>{{log.log_date}}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3">No hay registros de tiempo para esta tarea.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

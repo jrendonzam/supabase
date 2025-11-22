@@ -1,7 +1,30 @@
+version: '3.8'
+
 services:
-  web:
-    build: .
+  db:
+    image: mysql:8.0
+    container_name: db_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "5001:5000"
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+  app:
+    build: .
+    container_name: flask_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "5001:5001"
+    volumes:
+      - sqlite_data:/app
     env_file:
       - .env
+
+volumes:
+  db_data:
+  sqlite_data:

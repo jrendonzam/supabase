@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Arquitectura de la Aplicación{% endblock %}
+{% block content %}
+<h2>Arquitectura Multi-Base de Datos</h2>
+<p>Esta aplicación está diseñada para demostrar cómo diferentes tipos de bases de datos pueden coexistir y
+    especializarse en distintas tareas dentro de un mismo proyecto.</p>
+
+<div class="card-container">
+    <div class="card">
+        <h3>Supabase (PostgreSQL)</h3>
+        <p><strong>Rol:</strong> Base de Datos Principal (Core)</p>
+        <p>Actúa como el "cerebro" principal. Almacena los datos transaccionales y críticos que necesitan estar siempre
+            disponibles y seguros en la nube.</p>
+        <ul>
+            <li>Usuarios (Autenticación)</li>
+            <li>Tareas (Datos principales)</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>SQLite</h3>
+        <p><strong>Rol:</strong> Base de Datos de Configuración</p>
+        <p>Es un simple archivo local que vive junto a la aplicación. Es perfecta para datos de configuración, catálogos
+            o información que no cambia frecuentemente.</p>
+        <ul>
+            <li>Categorías de las tareas</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>MySQL / MariaDB</h3>
+        <p><strong>Rol:</strong> Base de Datos Analítica y de Logs</p>
+        <p>Es un servidor de base de datos robusto, ideal para almacenar grandes volúmenes de datos históricos o
+            registros que crecen con el tiempo, y sobre los cuales se pueden realizar análisis.</p>
+        <ul>
+            <li>Registros de tiempo (Historial)</li>
+            <li>Datos para el Dashboard</li>
+        </ul>
+    </div>
+</div>
+<style>
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h3 {
+        margin-top: 0;
+        color: #007bff;
+    }
+</style>
+{% endblock %}

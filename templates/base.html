@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Gestor de Tareas{% endblock %}</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: #f8f9fa;
+            margin: 0;
+            color: #343a40;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        nav {
+            background: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .flash-msg {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            border: 1px solid transparent;
+        }
+
+        .flash-msg.success {
+            background: #d1e7dd;
+            color: #0f5132;
+            border-color: #badbcc;
+        }
+
+        .flash-msg.error {
+            background: #f8d7da;
+            color: #842029;
+            border-color: #f5c2c7;
+        }
+
+        .flash-msg.info {
+            background: #cff4fc;
+            color: #055160;
+            border-color: #b6effb;
+        }
+
+        h1,
+        h2 {
+            color: #212529;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        input,
+        select,
+        button {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+    {% if session.user_id %}
+    <nav>
+        <div>
+            <a href="/">Tareas</a>
+            <a href="/categories">Categorías</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/export">Exportar</a>
+        </div>
+        <div>
+            <span>{{ session.user_email }}</span> | <a href="/logout">Cerrar sesión</a>
+        </div>
+    </nav>
+    {% endif %}
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash-msg {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+
+</html>

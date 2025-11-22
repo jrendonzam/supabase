@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Gestionar Categorías{% endblock %}
+{% block content %}
+<h2>Gestionar Categorías</h2>
+<p>Aquí puedes añadir o eliminar las categorías para tus tareas. Estos datos se guardan en un archivo local de base de
+    datos (SQLite).</p>
+<form method="POST" action="/categories/add">
+    <input type="text" name="name" placeholder="Nombre de la nueva categoría..." required>
+    <button type="submit" style="background: #28a745; border-color: #28a745;">Agregar Categoría</button>
+</form>
+
+<h2>Categorías Existentes</h2>
+<ul style="list-style: none; padding: 0;">
+    {% for cat in categories %}
+    <li
+        style="background: white; padding: 12px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+        {{cat.name}}
+        <a href="/categories/delete/{{cat.id}}" style="color: #dc3545;">Eliminar</a>
+    </li>
+    {% else %}
+    <li style="background: white; padding: 12px;">No hay categorías.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

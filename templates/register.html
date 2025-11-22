@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .auth-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 320px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .error {
+            color: #842029;
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <h2>Crear Cuenta</h2>
+        <form method="POST" action="/register">
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña (mínimo 6 caracteres)" required>
+            <button type="submit">Registrarme</button>
+            {% if error %}<p class="error">{{error}}</p>{% endif %}
+        </form>
+        <p>¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
+    </div>
+</body>
+
+</html>

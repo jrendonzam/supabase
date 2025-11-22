@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Mis Tareas{% endblock %}
+{% block content %}
+<h2>Agregar Nueva Tarea</h2>
+<form method="POST" action="/add">
+    <input type="text" name="title" placeholder="Título de la tarea..." required>
+    <select name="category_id">
+        <option value="">Sin Categoría</option>
+        {% for cat in categories %}<option value="{{cat.id}}">{{cat.name}}</option>{% endfor %}
+    </select>
+    <button type="submit">Agregar Tarea</button>
+</form>
+
+<h2>Mis Tareas</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Categoría</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+        <th>Registrar Tiempo</th>
+    </tr>
+    {% for t in tasks %}
+    <tr>
+        <td>{{t['id']}}</td>
+        <td>{{t['title']}}</td>
+        <td>{{t['category_name'] or 'N/A'}}</td>
+        <td>{{ "✔️ Completada" if t['done'] else "❌ Pendiente" }}</td>
+        <td>
+            {% if not t['done'] %}
+            <a href="/done/{{t['id']}}">Completar</a> |
+            <a href="/edit/{{t['id']}}">Editar</a>
+            {% else %}
+            <a href="/delete/{{t['id']}}">Eliminar</a>
+            {% endif %}
+            | <a href="/history/{{t['id']}}">Historial</a>
+        </td>
+        <td>
+            <form method="POST" action="/log_time/{{t['id']}}" style="box-shadow:none;padding:0;margin:0;display:flex;">
+                <input type="number" name="minutes" placeholder="min" style="width:60px;" required>
+                <button type="submit">Registrar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

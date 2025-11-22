@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Editar Tarea{% endblock %}
+{% block content %}
+<h2>Editar Tarea #{{ task.id }}</h2>
+<form method="POST" action="/edit/{{ task.id }}">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" value="{{ task.title }}" required>
+
+    <label for="category_id">Categoría:</label>
+    <select id="category_id" name="category_id">
+        <option value="">Sin Categoría</option>
+        {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if task.category_id and cat.id==task.category_id %}selected{% endif %}>
+            {{ cat.name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Guardar Cambios</button>
+</form>
+<a href="/">Cancelar</a>
+{% endblock %}
