@@ -107,7 +107,7 @@ def add():
     try:
         client = get_supabase_client()
         client.table("tasks").insert(task_data).execute()
-        flash("Tarea agregada en la base de datos principal (Supabase).", "success")
+        flash("Tarea agregada en la base de datos Supabase", "success")
     except (PostgrestAPIError, Exception) as e:
         print(f"ERROR AL INSERTAR: {getattr(e, 'message', e)}")
         flash(f"Error al agregar la tarea: {getattr(e, 'message', e)}", "error")
@@ -121,7 +121,7 @@ def done(task_id):
     try:
         client = get_supabase_client()
         client.table("tasks").update({"done": True}).eq("id", task_id).eq("user_id", user_id).execute()
-        flash("Tarea marcada como completada (en Supabase).", "info")
+        flash("Tarea completada, status actualizado en la base de datos de Supabase", "info")
     except (PostgrestAPIError, Exception) as e:
         flash(f"No se pudo actualizar la tarea: {getattr(e, 'message', e)}", "error")
     return redirect("/")
@@ -189,7 +189,7 @@ def edit_task(task_id):
         try:
             client = get_supabase_client()
             client.table("tasks").update(update_data).eq("id", task_id).eq("user_id", session["user_id"]).execute()
-            flash(f"Tarea #{task_id} actualizada en la base de datos principal (Supabase).", "success")
+            flash(f"Tarea #{task_id} actualizada en la base de datos Supabase", "success")
         except Exception as e:
             flash(f"Error al actualizar la tarea: {e}", "error")
         return redirect("/")
@@ -407,7 +407,7 @@ def log_time(task_id):
         cursor.close()
         conn.close()
 
-        flash(f"Se registraron {minutes} minuto(s) en la base de datos (MySQL).", "success")
+        flash(f"Se registraron {minutes} minuto(s) en la base de datos MySQL", "success")
     except Exception as e:
         flash(f"Error al registrar el tiempo en MySQL: {e}", "error")
         
